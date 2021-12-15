@@ -1,2 +1,2 @@
 # Softuni-Advanced
- C#-Advanced
+ C#-Advanced-Exercises
