@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Linq;
 
-namespace SumMatrixColumns
+namespace PrimaryDiagonal
 {
     class Program
     {
         static void Main(string[] args)
         {
-            var matrixInput = Console.ReadLine().Split(", ", StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
-            int[,] matrix = new int[matrixInput[0], matrixInput[1]];
+            int dimensionNum = int.Parse(Console.ReadLine());
+            int[,] matrix = new int[dimensionNum, dimensionNum];
             for (int i = 0; i < matrix.GetLength(0); i++)
             {
                 var input = Console.ReadLine().Split().Select(int.Parse).ToArray();
@@ -17,15 +17,18 @@ namespace SumMatrixColumns
                     matrix[i, j] = input[j];
                 }
             }
-            for (int i = 0; i < matrix.GetLength(1); i++)
+            int k = 0;
+            var sum = 0;
+            for (int i = 0; i < matrix.GetLength(0); i++)
             {
-                var sum = 0;
-                for (int j = 0; j < matrix.GetLength(0); j++)
+                for (int j = k; j < matrix.GetLength(1); j++)
                 {
-                    sum += matrix[j, i];
+                    sum += matrix[i, j];
+                    break;
                 }
-                Console.WriteLine(sum);
+                k++;
             }
+            Console.WriteLine(sum);
         }
     }
 }
