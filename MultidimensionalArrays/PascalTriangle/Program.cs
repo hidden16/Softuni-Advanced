@@ -25,7 +25,7 @@ namespace PascalTriangle
                 }
                 cols++;
             }
-            foreach (int[] item in jaggedArray)
+            foreach (var item in jaggedArray)
             {
                 Console.WriteLine(string.Join(" ", item));
             }
