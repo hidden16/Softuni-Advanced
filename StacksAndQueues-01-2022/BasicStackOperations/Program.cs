@@ -30,6 +30,10 @@ namespace BasicStackOperations
                 {
                     Console.WriteLine($"{st.Pop()}");
                 }
+                else
+                {
+                    Console.WriteLine('0');
+                }
             }
         }
     }
