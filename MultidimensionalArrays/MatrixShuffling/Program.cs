@@ -47,6 +47,10 @@ namespace MatrixShuffling
                         Console.WriteLine($"Invalid input!");
                     }
                 }
+                else
+                {
+                    Console.WriteLine($"Invalid input!");
+                }
                 commands = Console.ReadLine();
             }
 
