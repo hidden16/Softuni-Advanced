@@ -21,7 +21,7 @@ namespace FastFood
             }
             while (queue.Count > 0)
             {
-                if (foodQty - queue.Peek() > 0)
+                if (foodQty - queue.Peek() >= 0)
                 {
                     foodQty -= queue.Dequeue();
                 }
