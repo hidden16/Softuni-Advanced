@@ -43,7 +43,7 @@ namespace KeyRevolver
             else
             {
                 safeValue -= (bulletsCount * priceOfBullet);
-                Console.WriteLine($"{bulletsLeft} bullets left. Earned ${safeValue}");
+                Console.WriteLine($"{bullets.Count} bullets left. Earned ${safeValue}");
             }
         }
     }
