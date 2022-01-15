@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30413.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrimaryDiagonal", "PrimaryDiagonal.csproj", "{58A92114-2F38-45ED-9874-A69DED0A5279}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{58A92114-2F38-45ED-9874-A69DED0A5279}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58A92114-2F38-45ED-9874-A69DED0A5279}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58A92114-2F38-45ED-9874-A69DED0A5279}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58A92114-2F38-45ED-9874-A69DED0A5279}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F9A88C12-C535-4C71-9894-8A8D5B0930CD}
+	EndGlobalSection
+EndGlobal
