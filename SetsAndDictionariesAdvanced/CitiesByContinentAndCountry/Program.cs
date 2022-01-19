@@ -28,10 +28,7 @@ namespace CitiesByContinentAndCountry
                     }
                     else
                     {
-                        if (!continents[continent][country].Contains(city))
-                        {
                             continents[continent][country].Add(city);
-                        }
                     }
                 }
             }
