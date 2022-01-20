@@ -20,7 +20,14 @@ namespace Wardrobe
                     wardrobe.Add(color, new Dictionary<string, int>());
                     for (int j = 0; j < itemSplitted.Length; j++)
                     {
-                        wardrobe[color].Add(itemSplitted[j], 1);
+                        if (!wardrobe[color].ContainsKey(itemSplitted[j]))
+                        {
+                            wardrobe[color].Add(itemSplitted[j], 1);
+                        }
+                        else
+                        {
+                            wardrobe[color][itemSplitted[j]]++;
+                        }
                     }
                 }
                 else
@@ -39,23 +46,23 @@ namespace Wardrobe
                 }
             }
             var toLookFor = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries);
-            
-                foreach (var color in wardrobe)
+
+            foreach (var color in wardrobe)
+            {
+                Console.WriteLine($"{color.Key} clothes:");
+                foreach (var dress in color.Value)
                 {
-                    Console.WriteLine($"{color.Key} clothes:");
-                    foreach (var dress in color.Value)
+                    if (toLookFor[0] == color.Key && toLookFor[1] == dress.Key)
                     {
-                        if (toLookFor[0] == color.Key && toLookFor[1] == dress.Key)
-                        {
-                            Console.WriteLine($"* {dress.Key} - {dress.Value} (found!)");
-                        }
-                        else
-                        {
-                            Console.WriteLine($"* {dress.Key} - {dress.Value}");
-                        }
+                        Console.WriteLine($"* {dress.Key} - {dress.Value} (found!)");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"* {dress.Key} - {dress.Value}");
                     }
                 }
-            
+            }
+
         }
     }
 }
