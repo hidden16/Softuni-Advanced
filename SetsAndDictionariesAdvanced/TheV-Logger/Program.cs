@@ -37,7 +37,7 @@ namespace TheV_Logger
                         vloggers.Add(name, new Followage());
                     }
                 }
-                if (tokens[1] == "followed")
+                if (tokens[1].ToLower() == "followed")
                 {
                     var vloggerOne = tokens[0];
                     var vloggerTwo = tokens[2];
@@ -55,7 +55,7 @@ namespace TheV_Logger
             }
             Console.WriteLine($"The V-Logger has a total of {vloggers.Keys.Count} vloggers in its logs.");
             var vloggerToRemove = "";
-            foreach (var vlogger in vloggers.OrderByDescending(x=>x.Value.Followers.Count))
+            foreach (var vlogger in vloggers.OrderByDescending(x=>x.Value.Followers.Count).ThenBy(x=>x.Value.Following.Count))
             {
                 Console.WriteLine($"1. {vlogger.Key} : {vlogger.Value.Followers.Count} followers, {vlogger.Value.Following.Count} following");
                 vloggerToRemove = vlogger.Key;
