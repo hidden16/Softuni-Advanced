@@ -15,9 +15,9 @@ namespace ListOfPredicates
                 numbers.Add(i);
             }
             int[] divisibles = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
-            for (int i = 0; i < divisibles.Length; i++)
+            foreach (var item in divisibles)
             {
-                Func<int, bool> filter = n => n % divisibles[i] == 0;
+                Func<int, bool> filter = n => n % item == 0;
                 numbers = numbers.Where(filter).ToList();
             }
             Console.WriteLine(string.Join(" ",numbers));
