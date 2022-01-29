@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace DefiningClasses
@@ -16,15 +17,10 @@ namespace DefiningClasses
         {
             var oldestMemberName = String.Empty;
             var oldestMemberAge = int.MinValue;
-            foreach (var member in People)
+            foreach (var member in People.Where(x => x.Value > 30).OrderBy(x => x.Key))
             {
-                if (member.Value > oldestMemberAge)
-                {
-                    oldestMemberName = member.Key;
-                    oldestMemberAge = member.Value;
-                }
+                Console.WriteLine($"{member.Key} - {member.Value}");
             }
-            Console.WriteLine($"{oldestMemberName} {oldestMemberAge}");
         }
     }
 }
