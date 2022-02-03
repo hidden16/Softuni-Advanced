@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CustomDoublyLinkedList
 {
@@ -27,6 +28,7 @@ namespace CustomDoublyLinkedList
             Console.WriteLine($"Current state");
             doubly.ForEach(n => Console.WriteLine(n));
             Console.WriteLine($"----------------");
+
         }
     }
 }
