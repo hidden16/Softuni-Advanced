@@ -7,6 +7,11 @@ namespace Drones
 {
     public class Airfield
     {
+        private List<Drone> drones;
+        private string name;
+        private int capacity;
+        private double landingStrip;
+
         public Airfield(string name, int capacity, double landingStrip)
         {
             Name = name;
@@ -14,17 +19,17 @@ namespace Drones
             LandingStrip = landingStrip;
             Drones = new List<Drone>();
         }
-        public List<Drone> Drones { get; set; }
-        public string Name { get; set; }
-        public int Capacity { get; set; }
-        public double LandingStrip { get; set; }
-        public int Count { get {return Drones.Count; } }
+        public List<Drone> Drones { get => drones; set => drones = value; }
+        public string Name { get => name; set => name = value; }
+        public int Capacity { get => capacity; set => capacity = value; }
+        public double LandingStrip { get => landingStrip; set => landingStrip = value; }
+        public int Count => Drones.Count;
         public string AddDrone(Drone drone)
         {
-            if (drone.Name == null || drone.Name == string.Empty || drone.Brand == null || drone.Brand == string.Empty || drone.Range <= 5 || drone.Range >= 15)
+            if (string.IsNullOrEmpty(drone.Name) || string.IsNullOrEmpty(drone.Brand) || drone.Range <= 5 || drone.Range >= 15)
             {
                 return "Invalid drone.";
-                
+
             }
             if (Drones.Count >= Capacity)
             {
@@ -95,7 +100,7 @@ namespace Drones
                     sb.AppendLine(drone.ToString());
                 }
             }
-            return sb.ToString();
+            return sb.ToString().Trim();
         }
     }
 }
