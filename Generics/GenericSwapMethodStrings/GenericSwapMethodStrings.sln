@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30413.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericSwapMethodStrings", "GenericSwapMethodStrings.csproj", "{DF176107-8806-446D-A4AF-177930A13ABD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DF176107-8806-446D-A4AF-177930A13ABD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF176107-8806-446D-A4AF-177930A13ABD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF176107-8806-446D-A4AF-177930A13ABD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF176107-8806-446D-A4AF-177930A13ABD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BA6FFABB-C540-460A-BDFD-C2B65DC272F9}
+	EndGlobalSection
+EndGlobal
