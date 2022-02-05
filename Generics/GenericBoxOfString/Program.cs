@@ -6,7 +6,14 @@ namespace GenericBoxOfString
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            int n = int.Parse(Console.ReadLine());
+            Box<string> box = new Box<string>();
+            for (int i = 0; i < n; i++)
+            {
+                var input = Console.ReadLine();
+                box.Input = input;
+                Console.WriteLine(box.ToString());
+            }
         }
     }
 }
