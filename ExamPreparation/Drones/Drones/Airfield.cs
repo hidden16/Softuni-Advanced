@@ -31,7 +31,7 @@ namespace Drones
                 return "Invalid drone.";
 
             }
-            if (Drones.Count >= Capacity)
+            if (Count >= Capacity)
             {
                 return "Airfield is full.";
             }
@@ -40,13 +40,11 @@ namespace Drones
         }
         public bool RemoveDrone(string name)
         {
-            for (int i = 0; i < Drones.Count; i++)
+            if (Drones.Any(xdrone => xdrone.Name == name))
             {
-                if (Drones[i].Name == name)
-                {
-                    Drones.RemoveAt(i);
-                    return true;
-                }
+                Drone remuveDrone = Drones.Single(xdrone => xdrone.Name == name);
+                Drones.Remove(remuveDrone);
+                return true;
             }
             return false;
         }
@@ -92,7 +90,7 @@ namespace Drones
         public string Report()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"Drones available at {Name}: ");
+            sb.AppendLine($"Drones available at {Name}:");
             foreach (var drone in Drones)
             {
                 if (drone.Available == true)
