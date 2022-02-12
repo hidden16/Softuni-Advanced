@@ -5,21 +5,17 @@ namespace IteratorsAndComparators
 {
     public class LibraryIterator : IEnumerator<Book>
     {
-        private List<Book> books;
-        private int currIndex;
-        public LibraryIterator(List<Book> books)
+        private readonly List<Book> books;
+        private int currentIndex;
+        public LibraryIterator(IEnumerable<Book> books)
         {
-            this.books = books;
-            currIndex = -1;
+            this.Reset();
+            this.books = new List<Book>(books);
         }
-        public Book Current => books[currIndex];
-        public bool MoveNext()
-        {
-            currIndex++;
-            return currIndex < books.Count;
-        }
+        public Book Current => books[currentIndex];
+        public bool MoveNext() => ++currentIndex < books.Count;
         public void Dispose() { }
-        public void Reset() { }
+        public void Reset() => this.currentIndex = -1;
         object IEnumerator.Current => Current; // legacy
     }
 }
