@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace BirthdayCelebration
 {
-    class Program
+    internal class Program
     {
         static void Main(string[] args)
         {
@@ -13,37 +13,39 @@ namespace BirthdayCelebration
             Queue<int> guests = new Queue<int>(guestsInput);
             Stack<int> plates = new Stack<int>(platesInput);
             var wastedFood = 0;
-            while (guests.Count > 0 && plates.Count > 0)
+            while (guests.Count != 0 && plates.Count != 0)
             {
-                var currGuest = guests.Peek();
-                currGuest -= plates.Pop();
-                if (currGuest <= 0)
+                if (plates.Peek() >= guests.Peek())
                 {
-                    wastedFood += Math.Abs(currGuest);
-                    guests.Dequeue();
+                    wastedFood += plates.Pop() - guests.Dequeue();
                 }
-                else
+                else if (plates.Peek() < guests.Peek())
                 {
-                    while (currGuest > 0 && plates.Count > 0)
+                    var guest = guests.Peek();
+                    while (guest > 0)
                     {
-                        currGuest -= plates.Pop();
+                        if (plates.Count > 0)
+                        {
+                            guest -= plates.Pop();
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
                     guests.Dequeue();
-                    wastedFood += Math.Abs(currGuest);
+                    wastedFood += Math.Abs(guest);
                 }
+            }
+            if (plates.Count > 0)
+            {
+                Console.WriteLine($"Plates: {string.Join(" ", plates)}");
             }
             if (guests.Count > 0)
             {
-                Console.Write($"Guests: ");
-                Console.Write(string.Join(" ", guests));
+                Console.WriteLine($"Guests: {string.Join(" ", guests)}");
             }
-            else if (plates.Count > 0)
-            {
-                Console.Write("Plates: ");
-                Console.Write(string.Join(" ", plates));
-            }
-            Console.WriteLine();
-            Console.WriteLine("Wasted grams of food: " + wastedFood);
+            Console.WriteLine($"Wasted grams of food: {wastedFood}");
         }
     }
 }
