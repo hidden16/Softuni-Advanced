@@ -14,34 +14,30 @@ namespace StreetRacing
             Laps = laps;
             Capacity = capacity;
             MaxHorsePower = maxHorsePower;
-            Participants = new List<Car>();
         }
-
-        public List<Car> Participants { get; set; }
+        public List<Car> Participants = new List<Car>();
         public string Name { get; set; }
         public string Type { get; set; }
         public int Laps { get; set; }
         public int Capacity { get; set; }
         public int MaxHorsePower { get; set; }
         public int Count => Participants.Count;
-        public int MyProperty { get; set; }
         public void Add(Car car)
         {
-            if ((!Participants.Any(x => x.LicensePlate == car.LicensePlate)) && Count < Capacity && car.HorsePower <= MaxHorsePower)
+            if (Participants.All(x=>x.LicensePlate != car.LicensePlate) && Count < Capacity && car.HorsePower <= MaxHorsePower)
             {
                 Participants.Add(car);
             }
         }
         public bool Remove(string licensePlate)
         {
-            var isRemoved = false;
-            var currCar = Participants.Find(x => x.LicensePlate == licensePlate);
+            var currCar = Participants.Find(x=>x.LicensePlate == licensePlate);
             if (currCar != null)
             {
                 Participants.Remove(currCar);
-                isRemoved = true;
+                return true;
             }
-            return isRemoved;
+            return false;
         }
         public Car FindParticipant(string licensePlate)
         {
@@ -54,20 +50,20 @@ namespace StreetRacing
         }
         public Car GetMostPowerfulCar()
         {
-            if (Participants.Count == 0)
+            if (Count == 0)
             {
                 return null;
             }
-            var mostPowerfulCar = Participants.OrderByDescending(x => x.HorsePower);
-            return mostPowerfulCar.FirstOrDefault();
+            var currCar = Participants.OrderByDescending(x => x.HorsePower).First();
+            return currCar;
         }
         public string Report()
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"Race: {Name} - Type: {Type} (Laps: {Laps})");
-            foreach (var car in Participants)
+            foreach (var item in Participants)
             {
-                sb.AppendLine(car.ToString());
+                sb.AppendLine(item.ToString());
             }
             return sb.ToString().TrimEnd();
         }
