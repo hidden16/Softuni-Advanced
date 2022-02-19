@@ -1,244 +1,154 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Armory
 {
-    class Program
+    internal class Program
     {
         static void Main(string[] args)
         {
             var n = int.Parse(Console.ReadLine());
-            var armory = new char[n, n];
-            for (int rows = 0; rows < armory.GetLength(0); rows++)
+            var matrix = new char[n, n];
+            var currRow = 0;
+            var currCol = 0;
+            int[] mirrorOne = new int[2];
+            int[] mirrorTwo = new int[2];
+            bool mirrorTwoFound = false;
+            for (int row = 0; row < matrix.GetLength(0); row++)
             {
-                string input = Console.ReadLine();
-                var inputToChar = input.ToCharArray();
-                for (int cols = 0; cols < armory.GetLength(1); cols++)
+                var input = Console.ReadLine().ToCharArray();
+                for (int col = 0; col < matrix.GetLength(1); col++)
                 {
-                    armory[rows, cols] = inputToChar[cols];
-                }
-            }
-            bool outOfArmory = false;
-            int newRow = 0;
-            int newCol = 0;
-            var mirrorFoundCounter = 0;
-            int[] mirror1 = new int[2];
-            int[] mirror2 = new int[2];
-            for (int row = 0; row < armory.GetLength(0); row++)
-            {
-                for (int col = 0; col < armory.GetLength(1); col++)
-                {
-                    if (armory[row, col] == 'A')
+                    matrix[row, col] = input[col];
+                    if (matrix[row, col] == 'A')
                     {
-                        newRow = row;
-                        newCol = col;
+                        currRow = row;
+                        currCol = col;
                     }
-                    if (armory[row, col] == 'M')
+                    else if (matrix[row, col] == 'M')
                     {
-                        if (mirrorFoundCounter < 1)
+                        if (mirrorTwoFound == false)
                         {
-                            mirror1[0] = row;
-                            mirror1[1] = col;
+                            mirrorOne[0] = row;
+                            mirrorOne[1] = col;
+                            mirrorTwoFound = true;
                         }
-                        else
+                        else if (mirrorTwoFound == true)
                         {
-                            mirror2[0] = row;
-                            mirror2[1] = col;
+                            mirrorTwo[0] = row;
+                            mirrorTwo[1] = col;
                         }
-                        mirrorFoundCounter++;
                     }
                 }
             }
-            var coins = 0;
-            List<int> coinsTaken = new List<int>();
-            bool isM = false;
+            matrix[currRow, currCol] = '-';
+            bool isOut = false;
+            var sum = 0;
+            var neededSum = false;
             while (true)
             {
-                string direction = Console.ReadLine();
-                switch (direction.ToLower())
+                var movements = Console.ReadLine();
+                if (movements == "up" && IsInRange(matrix, currRow - 1, currCol))
                 {
-                    case "up":
-                        newRow -= 1;
-                        break;
-                    case "down":
-                        newRow += 1;
-                        break;
-                    case "left":
-                        newCol -= 1;
-                        break;
-                    case "right":
-                        newCol += 1;
-                        break;
-                    default:
-                        continue;
-                }
-                if (!(newRow >= 0 && newRow < armory.GetLength(0) && newCol >= 0 && newCol < armory.GetLength(1)))
-                {
-                    outOfArmory = true;
-                    switch (direction)
+                    currRow--;
+                    if (char.IsDigit(matrix[currRow,currCol]))
                     {
-                        case "up":
-                            armory[newRow + 1, newCol] = '-';
-                            break;
-                        case "down":
-                            armory[newRow - 1, newCol] = '-';
-                            break;
-                        case "left":
-                            armory[newRow, newCol + 1] = '-';
-                            break;
-                        case "right":
-                            armory[newRow, newCol - 1] = '-';
-                            break;
-                        default:
-                            break;
+                        sum += (int)Char.GetNumericValue(matrix[currRow,currCol]);
+                        matrix[currRow, currCol] = '-';
                     }
+                    else if (matrix[currRow,currCol] == 'M')
+                    {
+                        matrix[currRow, currCol] = '-';
+                        currRow = mirrorTwo[0];
+                        currCol = mirrorTwo[1];
+                        matrix[currRow, currCol] = '-';
+                    }
+                }
+                else if (movements == "down" && IsInRange(matrix, currRow + 1, currCol))
+                {
+                    currRow++;
+                    if (char.IsDigit(matrix[currRow, currCol]))
+                    {
+                        sum += (int)Char.GetNumericValue(matrix[currRow, currCol]);
+                        matrix[currRow, currCol] = '-';
+                    }
+                    else if (matrix[currRow, currCol] == 'M')
+                    {
+                        matrix[currRow, currCol] = '-';
+                        currRow = mirrorTwo[0];
+                        currCol = mirrorTwo[1];
+                        matrix[currRow, currCol] = '-';
+                    }
+                }
+                else if (movements == "left" && IsInRange(matrix, currRow, currCol - 1))
+                {
+                    currCol--;
+                    if (char.IsDigit(matrix[currRow, currCol]))
+                    {
+                        sum += (int)Char.GetNumericValue(matrix[currRow, currCol]);
+                        matrix[currRow, currCol] = '-';
+                    }
+                    else if (matrix[currRow, currCol] == 'M')
+                    {
+                        matrix[currRow, currCol] = '-';
+                        currRow = mirrorTwo[0];
+                        currCol = mirrorTwo[1];
+                        matrix[currRow, currCol] = '-';
+                    }
+                }
+                else if (movements == "right" && IsInRange(matrix, currRow, currCol + 1))
+                {
+                    currCol++;
+                    if (char.IsDigit(matrix[currRow, currCol]))
+                    {
+                        sum += (int)Char.GetNumericValue(matrix[currRow, currCol]);
+                        matrix[currRow, currCol] = '-';
+                    }
+                    else if (matrix[currRow, currCol] == 'M')
+                    {
+                        matrix[currRow, currCol] = '-';
+                        currRow = mirrorTwo[0];
+                        currCol = mirrorTwo[1];
+                        matrix[currRow, currCol] = '-';
+                    }
+                }
+                else
+                {
+                    matrix[currRow,currCol] = '-';
+                    isOut = true;
                     break;
                 }
-                if (armory[newRow,newCol] =='M')
+                if (sum >= 65)
                 {
-
-                    isM = true;
-                }
-                Movements(direction, armory, newRow, newCol, coins, mirror1, mirror2, coinsTaken);
-                if (isM)
-                {
-                    newRow = mirror2[0];
-                    newCol = mirror2[1];
-                    isM = false;
-                }
-                if (coinsTaken.Sum() >= 65)
-                {
-                    CoinPrint(coinsTaken, armory);
-                    return;
+                    matrix[currRow, currCol] = 'A';
+                    neededSum = true;
+                    break;
                 }
             }
-            if (outOfArmory)
+            if (isOut)
             {
-                OutOfArmory(coinsTaken, armory);
-                return;
+                Console.WriteLine($"I do not need more swords!");
             }
-        }
-        public static void Movements(string directions, char[,] armory, int newRow, int newCol, int coins, int[] mirror1, int[] mirror2, List<int> coinsTaken)
-        {
-            if (directions == "up")
+            if (neededSum)
             {
-                if (char.IsDigit(armory[newRow, newCol]))
-                {
-                    var num = armory[newRow, newCol].ToString();
-                    coinsTaken.Add(int.Parse(num));
-                    armory[newRow, newCol] = 'A';
-                    armory[newRow + 1, newCol] = '-';
-                }
-                else if (armory[newRow, newCol] == '-')
-                {
-                    armory[newRow, newCol] = 'A';
-                    armory[newRow + 1, newCol] = '-';
-                }
-                else if (armory[newRow, newCol] == 'M')
-                {
-                    armory[newRow + 1, newCol] = '-';
-                    newRow = mirror2[0];
-                    newCol = mirror2[1];
-                    armory[mirror1[0], mirror1[1]] = '-';
-                    armory[newRow, newCol] = 'A';
-                }
+                Console.WriteLine($"Very nice swords, I will come back for more!");
             }
-            else if (directions == "down")
+            Console.WriteLine($"The king paid {sum} gold coins.");
+            for (int row = 0; row < matrix.GetLength(0); row++)
             {
-                if (char.IsDigit(armory[newRow, newCol]))
+                for (int col = 0; col < matrix.GetLength(1); col++)
                 {
-                    var num = armory[newRow, newCol].ToString();
-                    coinsTaken.Add(int.Parse(num));
-                    armory[newRow, newCol] = 'A';
-                    armory[newRow - 1, newCol] = '-';
-                }
-                else if (armory[newRow, newCol] == '-')
-                {
-                    armory[newRow, newCol] = 'A';
-                    armory[newRow - 1, newCol] = '-';
-                }
-                else if (armory[newRow, newCol] == 'M')
-                {
-                    armory[newRow - 1, newCol] = '-';
-                    newRow = mirror2[0];
-                    newCol = mirror2[1];
-                    armory[mirror1[0], mirror1[1]] = '-';
-                    armory[newRow, newCol] = 'A';
-                }
-            }
-            else if (directions == "right")
-            {
-                if (char.IsDigit(armory[newRow, newCol]))
-                {
-                    var num = armory[newRow, newCol].ToString();
-                    coinsTaken.Add(int.Parse(num));
-                    armory[newRow, newCol] = 'A';
-                    armory[newRow, newCol - 1] = '-';
-                }
-                else if (armory[newRow, newCol] == '-')
-                {
-                    armory[newRow, newCol] = 'A';
-                    armory[newRow, newCol - 1] = '-';
-                }
-                else if (armory[newRow, newCol] == 'M')
-                {
-                    armory[newRow, newCol - 1] = '-';
-                    newRow = mirror2[0];
-                    newCol = mirror2[1];
-                    armory[mirror1[0], mirror1[1]] = '-';
-                    armory[newRow, newCol] = 'A';
-                }
-            }
-            else if (directions == "left")
-            {
-                if (char.IsDigit(armory[newRow, newCol]))
-                {
-                    var num = armory[newRow, newCol].ToString();
-                    coinsTaken.Add(int.Parse(num));
-                    armory[newRow, newCol] = 'A';
-                    armory[newRow, newCol + 1] = '-';
-                }
-                else if (armory[newRow, newCol] == '-')
-                {
-                    armory[newRow, newCol] = 'A';
-                    armory[newRow, newCol + 1] = '-';
-                }
-                else if (armory[newRow, newCol] == 'M')
-                {
-                    armory[newRow, newCol + 1] = '-';
-                    newRow = mirror2[0];
-                    newCol = mirror2[1];
-                    armory[mirror1[0], mirror1[1]] = '-';
-                    armory[newRow, newCol] = 'A';
-                }
-            }
-        }
-        public static void CoinPrint(List<int> coins, char[,] armory)
-        {
-            Console.WriteLine("Very nice swords, I will come back for more!");
-            Console.WriteLine($"The king paid {coins.Sum()} gold coins.");
-            for (int row = 0; row < armory.GetLength(0); row++)
-            {
-                for (int col = 0; col < armory.GetLength(1); col++)
-                {
-                    Console.Write($"{armory[row, col]}");
+                    Console.Write(matrix[row,col]);
                 }
                 Console.WriteLine();
             }
         }
-        public static void OutOfArmory(List<int> coins, char[,] armory)
+        public static bool IsInRange(char[,] matrix, int row, int col)
         {
-            Console.WriteLine("I do not need more swords!");
-            Console.WriteLine($"The king paid {coins.Sum()} gold coins.");
-            for (int row = 0; row < armory.GetLength(0); row++)
+            if (row >= 0 && row < matrix.GetLength(0) && col >= 0 && col < matrix.GetLength(1))
             {
-                for (int col = 0; col < armory.GetLength(1); col++)
-                {
-                    Console.Write($"{armory[row, col]}");
-                }
-                Console.WriteLine();
+                return true;
             }
+            return false;
         }
     }
 }
