@@ -44,7 +44,9 @@ namespace PawnWars
                 }
                 else
                 {
+                    matrix[whiteRow, whiteCol] = '-';
                     whiteRow--;
+                    matrix[whiteRow, whiteCol] = 'w';
                     if (whiteRow == 0)
                     {
                         Console.WriteLine($"Game over! White pawn is promoted to a queen at {Coordinates(whiteRow, whiteCol)}.");
@@ -63,7 +65,9 @@ namespace PawnWars
                 }
                 else
                 {
+                    matrix[blackRow, blackCol] = '-';
                     blackRow++;
+                    matrix[blackRow, blackCol] = 'b';
                     if (blackRow == 7)
                     {
                         Console.WriteLine($"Game over! Black pawn is promoted to a queen at {Coordinates(blackRow, blackCol)}.");
