@@ -1,17 +1,18 @@
 ﻿namespace AnimalFarm.Models
 {
+    using System;
     public class Chicken
     {
         public const int MinAge = 0;
         public const int MaxAge = 15;
 
-        protected string name;
-        internal int age;
+        private string name;
+        private int age;
 
-        internal Chicken(string name, int age)
+        public Chicken(string name, int age)
         {
-            this.name = name;
-            this.age = age;
+            Name = name;
+            Age = age;
         }
 
         public string Name
@@ -21,9 +22,21 @@
                 return this.name;
             }
 
-            internal set
+            private set
             {
-                this.name = value;
+                try
+                {
+                    if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
+                    {
+                        throw new ArgumentException();
+                    }
+                    this.name = value;
+                }
+                catch (ArgumentException)
+                {
+                    Console.WriteLine($"Name cannot be empty.");
+                    Environment.Exit(0);
+                }
             }
         }
 
@@ -34,9 +47,21 @@
                 return this.age;
             }
 
-            protected set
+            private set
             {
-                this.age = value;
+                try
+                {
+                    if (value < MinAge || value > MaxAge)
+                    {
+                        throw new ArgumentException();
+                    }
+                    age = value;
+                }
+                catch (ArgumentException)
+                {
+                    Console.WriteLine($"Age should be between 0 and 15.");
+                    Environment.Exit(0);
+                }
             }
         }
 
@@ -48,7 +73,7 @@
 			}
         }
 
-        public double CalculateProductPerDay()
+        private double CalculateProductPerDay()
         {
             switch (this.Age)
             {
