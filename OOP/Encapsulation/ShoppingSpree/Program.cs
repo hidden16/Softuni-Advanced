@@ -8,48 +8,44 @@ namespace ShoppingSpree
         static void Main(string[] args)
         {
             var nameMoneyInput = Console.ReadLine().Split(";", StringSplitOptions.RemoveEmptyEntries);
-            List<Person> person = new List<Person>();
-            foreach (var item in nameMoneyInput)
-            {
-                var personInput = item.Split("=");
-                var name = personInput[0];
-                var money = decimal.Parse(personInput[1]);
-                Person input = new Person(name, money);
-                person.Add(input);
-            }
             var productNameMoney = Console.ReadLine().Split(";", StringSplitOptions.RemoveEmptyEntries);
+            List<Person> person = new List<Person>();
             List<Product> product = new List<Product>();
-            foreach (var item in productNameMoney)
+            try
             {
-                var productInput = item.Split("=");
-                var name = productInput[0];
-                var cost = decimal.Parse(productInput[1]);
-                Product input = new Product(name, cost);
-                product.Add(input);
-            }
-            var commands = Console.ReadLine();
-            while (commands != "END")
-            {
-                var tokens = commands.Split(" ", StringSplitOptions.RemoveEmptyEntries);
-                var name = tokens[0];
-                var productName = tokens[1];
-                var currPerson = person.Find(x => x.Name == name);
-                var currProduct = product.Find(x => x.Name == productName);
-                if (currPerson != null && currProduct != null)
+
+                foreach (var item in nameMoneyInput)
                 {
-                    var index = person.IndexOf(currPerson);
-                    if (currPerson.Money >= currProduct.Cost)
-                    {
-                        person[index].Products.Add(currProduct);
-                        currPerson.Money -= currProduct.Cost;
-                        Console.WriteLine($"{person[index].Name} bought {currProduct.Name}");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"{person[index].Name} can't afford {currProduct.Name}");
-                    }
+                    var personInput = item.Split("=");
+                    var name = personInput[0];
+                    var money = double.Parse(personInput[1]);
+                    Person input = new Person(name, money);
+                    person.Add(input);
                 }
-                commands = Console.ReadLine();
+                foreach (var item in productNameMoney)
+                {
+                    var productInput = item.Split("=");
+                    var name = productInput[0];
+                    var cost = double.Parse(productInput[1]);
+                    Product input = new Product(name, cost);
+                    product.Add(input);
+                }
+                var commands = Console.ReadLine();
+                while (commands != "END")
+                {
+                    var tokens = commands.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+                    var name = tokens[0];
+                    var productName = tokens[1];
+                    var currPerson = person.Find(x => x.Name == name);
+                    var currProduct = product.Find(x => x.Name == productName);
+                    Console.WriteLine(currPerson.Buy(currProduct));
+                    commands = Console.ReadLine();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return;
             }
             foreach (var item in person)
             {

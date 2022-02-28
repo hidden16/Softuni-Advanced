@@ -8,13 +8,13 @@ namespace ShoppingSpree
     public class Person
     {
         string name;
-        decimal money;
+        double money;
         List<Product> products;
-        public Person(string name, decimal money)
+        public Person(string name, double money)
         {
             Name = name;
             Money = money;
-            products = new List<Product>();
+            Products = new List<Product>();
         }
         public string Name
         {
@@ -25,47 +25,59 @@ namespace ShoppingSpree
                 {
                     if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
                     {
-                        throw new Exception();
+                        throw new ArgumentException();
                     }
                     name = value;
                 }
-                catch (Exception)
+                catch (ArgumentException)
                 {
                     Console.WriteLine($"Name cannot be empty");
                     Environment.Exit(0);
                 }
             }
         }
-        public decimal Money
+        public double Money
         {
             get { return money; }
-            set
+            private set
             {
                 try
                 {
                     if (value < 0)
                     {
-                        throw new Exception();
+                        throw new ArgumentException();
                     }
                     money = value;
                 }
-                catch (Exception)
+                catch (ArgumentException)
                 {
                     Console.WriteLine($"Money cannot be negative");
                     Environment.Exit(0);
                 }
             } 
         }
-        public  List<Product> Products
+        public List<Product> Products
         {
             get { return products; }
-            set { products = value; }
+            private set { products = value; }
+        }
+        public string Buy(Product product)
+        {
+            if (Money >= product.Cost)
+            {
+                Products.Add(product);
+                return $"{Name} bought {product.Name}";
+            }
+            else
+            {
+                return $"{Name} can't afford {product.Name}";
+            }
         }
         public override string ToString()
         {
-            if (products.Count > 0 )
+            if (Products.Count > 0 )
             {
-                return $"{Name} - {products.Select(x => x.Name)}";
+                return $"{Name} - {string.Join(", ", Products.Select(x=>x.Name))}";
             }
             else
             {
