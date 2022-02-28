@@ -5,8 +5,8 @@ namespace ShoppingSpree
     public class Product
     {
         string name;
-        double cost;
-        public Product(string name, double cost)
+        decimal cost;
+        public Product(string name, decimal cost)
         {
             Name = name;
             Cost = cost;
@@ -31,29 +31,6 @@ namespace ShoppingSpree
                 }
             }
         }
-        public double Cost
-        {
-            get { return cost; }
-            private set
-            {
-                try
-                {
-                    if (value < 0)
-                    {
-                        throw new Exception();
-                    }
-                    cost = value;
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine($"Money cannot be negative!");
-                    Environment.Exit(0);
-                }
-            }
-        }
-        public override string ToString()
-        {
-            return Name;
-        }
+        public decimal Cost { get; set; }
     }
 }

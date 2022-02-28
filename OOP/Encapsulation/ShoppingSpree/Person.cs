@@ -8,13 +8,13 @@ namespace ShoppingSpree
     public class Person
     {
         string name;
-        double money;
+        decimal money;
         List<Product> products;
-        public Person(string name, double money)
+        public Person(string name, decimal money)
         {
             Name = name;
             Money = money;
-            Products = new List<Product>();
+            products = new List<Product>();
         }
         public string Name
         {
@@ -36,7 +36,7 @@ namespace ShoppingSpree
                 }
             }
         }
-        public double Money
+        public decimal Money
         {
             get { return money; }
             set
@@ -54,38 +54,24 @@ namespace ShoppingSpree
                     Console.WriteLine($"Money cannot be negative");
                     Environment.Exit(0);
                 }
-            }
+            } 
         }
-        public List<Product> Products
+        public  List<Product> Products
         {
             get { return products; }
-            private set { products = value; }
+            set { products = value; }
         }
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
-            if (Products.Count > 0)
+            if (products.Count > 0 )
             {
-                sb.AppendLine($"{Name} - {string.Join(", ", Products)}");
+                return $"{Name} - {products.Select(x => x.Name)}";
             }
             else
             {
-                sb.AppendLine($"{Name} - Nothing bought");
-            }
-            return sb.ToString().TrimEnd();
-        }
-        public string Buy(Product product)
-        {
-            if (Money >= product.Cost)
-            {
-                this.money -= product.Cost;
-                products.Add(product);
-                return $"{Name} bought {product.Name}";
-            }
-            else
-            {
-                return $"{Name} can't afford {product.Name}";
+                return $"{Name} - Nothing bought";
             }
         }
+
     }
 }
