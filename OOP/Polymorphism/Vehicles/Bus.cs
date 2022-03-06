@@ -4,15 +4,16 @@ using System.Text;
 
 namespace Vehicles
 {
-    public class Car : IDriveable
+    public class Bus : IDriveable
     {
-        double fuelQuantity;
-        public Car(double tankCapacity, double fuelConsumptionPerKm, double fuelQuantity)
+        private double fuelQuantity;
+        public Bus(double tankCapacity, double fuelConsumptionPerKm, double fuelQuantity)
         {
             TankCapacity = tankCapacity;
-            FuelConsumptionPerKm = fuelConsumptionPerKm + 0.9;
             FuelQuantity = fuelQuantity;
+            FuelConsumptionPerKm = fuelConsumptionPerKm;
         }
+
         public double FuelQuantity
         {
             get { return fuelQuantity; }
@@ -28,7 +29,21 @@ namespace Vehicles
         public double FuelConsumptionPerKm { get; private set; }
         public double TankCapacity { get; private set; }
 
+
+
         public string Drive(double distance)
+        {
+            if (FuelQuantity - (distance * FuelConsumptionPerKm) > 0)
+            {
+                FuelQuantity -= distance * (FuelConsumptionPerKm + 1.4);
+                return $"{GetType().Name} travelled {distance} km";
+            }
+            else
+            {
+                return $"{GetType().Name} needs refueling";
+            }
+        }
+        public string DriveEmpty(double distance)
         {
             if (FuelQuantity - (distance * FuelConsumptionPerKm) > 0)
             {

@@ -6,14 +6,29 @@ namespace Vehicles
     {
         static void Main(string[] args)
         {
-            var carInput = Console.ReadLine().Split(" ",StringSplitOptions.RemoveEmptyEntries);
-            var carFuelQty = double.Parse(carInput[1]);
-            var litersPerKm = double.Parse(carInput[2]);
-            IDriveable car = new Car(carFuelQty, litersPerKm);
-            var truckInput = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries);
-            var truckFuelQty = double.Parse(truckInput[1]);
-            var truckLitersPerKm = double.Parse(truckInput[2]);
-            IDriveable truck = new Truck(truckFuelQty, truckLitersPerKm);
+            IDriveable car = null;
+            IDriveable truck = null;
+            IDriveable bus = null;
+            for (int i = 0; i < 3; i++)
+            {
+                var input = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries);
+                var type = input[0];
+                var fuelQty = double.Parse(input[1]);
+                var litersPerKm = double.Parse(input[2]);
+                var tankCapacity = double.Parse(input[3]);
+                if (type == "Car")
+                {
+                    car = new Car(tankCapacity, litersPerKm, fuelQty);
+                }
+                else if (type == "Truck")
+                {
+                    truck = new Truck(tankCapacity, litersPerKm, fuelQty);
+                }
+                else if (type == "Bus")
+                {
+                    bus = new Bus(tankCapacity, litersPerKm, fuelQty);
+                }
+            }
             var n = int.Parse(Console.ReadLine());
             for (int i = 0; i < n; i++)
             {
@@ -28,8 +43,16 @@ namespace Vehicles
                     {
                         Console.WriteLine(truck.Drive(double.Parse(commands[2])));   
                     }
+                    else if (commands[1] == "Bus")
+                    {
+                        Console.WriteLine(bus.Drive(double.Parse(commands[2])));
+                    }
                 }
-                if (commands[0] == "Refuel")
+                else if (commands[0] == "DriveEmpty")
+                {
+                    Console.WriteLine(((Bus)bus).DriveEmpty(double.Parse(commands[2])));
+                }
+                else if (commands[0] == "Refuel")
                 {
                     if (commands[1] == "Car")
                     {
@@ -39,10 +62,15 @@ namespace Vehicles
                     {
                         truck.Refuel(double.Parse(commands[2]));
                     }
+                    else if (commands[1] == "Bus")
+                    {
+                        bus.Refuel(double.Parse(commands[2]));
+                    }
                 }
             }
             Console.WriteLine($"{car.GetType().Name}: {car.FuelQuantity:f2}");
             Console.WriteLine($"{truck.GetType().Name}: {truck.FuelQuantity:f2}");
+            Console.WriteLine($"{bus.GetType().Name}: {bus.FuelQuantity:f2}");
         }
     }
 }

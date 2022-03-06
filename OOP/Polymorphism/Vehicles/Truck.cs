@@ -6,13 +6,27 @@ namespace Vehicles
 {
     public class Truck : IDriveable
     {
-        public Truck(double fuelQuantity, double fuelConsumptionPerKm)
+        double fuelQuantity;
+        public Truck(double tankCapacity, double fuelConsumptionPerKm, double fuelQuantity)
         {
-            FuelQuantity = fuelQuantity;
+            TankCapacity = tankCapacity;
             FuelConsumptionPerKm = fuelConsumptionPerKm + 1.6;
+            FuelQuantity = fuelQuantity;
         }
-        public double FuelQuantity { get; private set; }
+        public double FuelQuantity
+        {
+            get { return fuelQuantity; }
+            private set
+            {
+                if (value > TankCapacity)
+                {
+                    value = 0;
+                }
+                fuelQuantity = value;
+            }
+        }
         public double FuelConsumptionPerKm { get; private set; }
+        public double TankCapacity { get; private set; }
 
         public string Drive(double distance)
         {
@@ -29,7 +43,18 @@ namespace Vehicles
 
         public void Refuel(double quantity)
         {
-            FuelQuantity += quantity - (quantity * 0.05);
+            if (quantity <= 0)
+            {
+                Console.WriteLine("Fuel must be a positive number");
+            }
+            else if (FuelQuantity + quantity > TankCapacity)
+            {
+                Console.WriteLine($"Cannot fit {quantity} fuel in the tank");
+            }
+            else
+            {
+                FuelQuantity += quantity - (quantity * 0.05);
+            }
         }
     }
 }
