@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using WildFarm.Entities.Animals;
 using WildFarm.Factories;
 
 namespace WildFarm
