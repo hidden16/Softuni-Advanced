@@ -1,4 +1,5 @@
-﻿using P02.Graphic_Editor.Models;
+﻿using P02.Graphic_Editor.Editors;
+using P02.Graphic_Editor.Models;
 using System;
 
 namespace P02.Graphic_Editor
@@ -8,7 +9,7 @@ namespace P02.Graphic_Editor
         static void Main()
         {
             IShape shape = new Circle();
-            GraphicEditor editor = new GraphicEditor();
+            Drawer editor = new ConsoleDrawer();
             editor.DrawShape(shape);
             shape = new Triangle();
             editor.DrawShape(shape);

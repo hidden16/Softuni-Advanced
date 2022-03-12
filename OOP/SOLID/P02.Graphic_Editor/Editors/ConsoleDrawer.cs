@@ -4,7 +4,7 @@ using System.Text;
 
 namespace P02.Graphic_Editor.Editors
 {
-    public class ConsoleEditor : Editor
+    public class ConsoleDrawer : Drawer
     {
         public override void DrawShape(IShape shape)
         {
