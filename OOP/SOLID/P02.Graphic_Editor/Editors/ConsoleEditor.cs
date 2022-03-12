@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace P02.Graphic_Editor
+namespace P02.Graphic_Editor.Editors
 {
-    public class GraphicEditor
+    public class ConsoleEditor : Editor
     {
-        public void DrawShape(IShape shape)
+        public override void DrawShape(IShape shape)
         {
             Console.WriteLine(shape.Draw());
         }
