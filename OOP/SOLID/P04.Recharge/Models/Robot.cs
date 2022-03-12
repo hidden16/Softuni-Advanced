@@ -36,14 +36,15 @@ namespace P04.Recharge
             this.currentPower -= hours;
         }
 
-        public override void Recharge()
+        public void Recharge()
         {
             this.currentPower = this.capacity;
+            Console.WriteLine($"Zarejdam se 48 chasa ");
         }
-
-        public override void Sleep()
+        // robot can recharge but cannot sleep so it inherits IRechargeable and not ISleeper
+        public override string ToString()
         {
-            throw new InvalidOperationException("Robots cannot sleep");
+            return $"Human employees agility sucks";
         }
     }
 }
