@@ -5,7 +5,7 @@ namespace LoggerExercise.LogFiles
     using System.Linq;
     public class LogFile : ILogFile
     {
-        private StringBuilder sb;
+        private readonly StringBuilder sb;
         public LogFile()
         {
             sb = new StringBuilder();
