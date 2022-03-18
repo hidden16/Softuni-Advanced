@@ -1,9 +1,7 @@
-﻿using CommandPattern.Core.Contracts;
-using CommandPattern.Core.Models;
-using System;
-
-namespace CommandPattern
+﻿namespace CommandPattern
 {
+    using Core.Entities;
+    using Core.Contracts;
     public class StartUp
     {
         public static void Main(string[] args)
