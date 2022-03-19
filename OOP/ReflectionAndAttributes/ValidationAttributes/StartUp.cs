@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using ValidationAttributes.Entities;
 using ValidationAttributes.Validators;
 
