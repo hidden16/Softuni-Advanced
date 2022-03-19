@@ -30,7 +30,7 @@ namespace Skeleton.Tests
             Assert.AreEqual(100, xp);
         }
         [Test]
-        public void Test_Alive_Dummy_Should_Not_Give_Xp()
+        public void Test_If_Dummy_Is_Alive_And_Gives_Xp_Should_Throw_Exception()
         {
             Dummy dummy = new Dummy(100, 100);
             Assert.Throws<InvalidOperationException>(() =>
