@@ -4,6 +4,7 @@ namespace DatabaseExtended.Tests
     using ExtendedDatabase;
     using System;
     using System.Linq;
+    using System.Collections.Generic;
 
     [TestFixture]
     public class ExtendedDatabaseTests
