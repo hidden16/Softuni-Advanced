@@ -23,6 +23,7 @@
                 {
                     throw new ArgumentNullException(ExceptionMessages.InvalidCaptainName);
                 }
+                fullName = value;
             }
         }
 
