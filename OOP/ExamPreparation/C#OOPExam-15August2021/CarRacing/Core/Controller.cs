@@ -36,7 +36,7 @@ namespace CarRacing.Core
             }
             else if (type == "TunedCar")
             {
-                car = new TunedCar(make,model,VIN,horsePower);
+                car = new TunedCar(make, model, VIN, horsePower);
                 cars.Add(car);
                 return String.Format(OutputMessages.SuccessfullyAddedCar, make, model, VIN);
             }
@@ -58,7 +58,7 @@ namespace CarRacing.Core
             {
                 racer = new ProfessionalRacer(username, car);
                 this.racer.Add(racer);
-                return String.Format(OutputMessages.SuccessfullyAddedRacer,username);
+                return String.Format(OutputMessages.SuccessfullyAddedRacer, username);
             }
             else if (type == "StreetRacer")
             {
@@ -77,7 +77,7 @@ namespace CarRacing.Core
             var racerOne = racer.FindBy(racerOneUsername);
             if (racerOne == null)
             {
-                throw new ArgumentException(String.Format(ExceptionMessages.RacerCannotBeFound,racerOneUsername));
+                throw new ArgumentException(String.Format(ExceptionMessages.RacerCannotBeFound, racerOneUsername));
             }
             var racerTwo = racer.FindBy(racerTwoUsername);
             if (racerTwo == null)
