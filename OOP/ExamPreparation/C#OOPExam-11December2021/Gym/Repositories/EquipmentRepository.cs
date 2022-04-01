@@ -12,7 +12,7 @@
         {
             models = new List<IEquipment>();
         }
-        public IReadOnlyCollection<IEquipment> Models { get { return models; } }
+        public IReadOnlyCollection<IEquipment> Models { get { return models.AsReadOnly(); } }
 
         public void Add(IEquipment model)
         {
@@ -21,18 +21,12 @@
 
         public IEquipment FindByType(string type)
         {
-            IEquipment currModel = models.Find(x => x.GetType().Name == type);
-            return currModel;
+            return models.FirstOrDefault(x=>x.GetType().Name == type);
         }
 
         public bool Remove(IEquipment model)
         {
-            if (models.Contains(model))
-            {
-                models.Remove(model);
-                return true;
-            }
-            return false;
+            return models.Remove(model);
         }
     }
 }

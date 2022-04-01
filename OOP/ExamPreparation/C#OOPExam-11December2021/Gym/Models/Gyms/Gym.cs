@@ -12,8 +12,8 @@ namespace Gym.Models.Gyms
     public abstract class Gym : IGym
     {
         private string name;
-        private ICollection<IEquipment> equipment;
-        private ICollection<IAthlete> athletes;
+        private List<IEquipment> equipment;
+        private List<IAthlete> athletes;
         public Gym(string name, int capacity)
         {
             Name = name;
@@ -44,7 +44,7 @@ namespace Gym.Models.Gyms
 
         public void AddAthlete(IAthlete athlete)
         {
-            if (athletes.Count > Capacity)
+            if (athletes.Count >= Capacity)
             {
                 throw new InvalidOperationException(ExceptionMessages.NotEnoughSize);
             }
@@ -58,7 +58,7 @@ namespace Gym.Models.Gyms
 
         public void Exercise()
         {
-            foreach (var athlete in athletes)
+            foreach (var athlete in Athletes)
             {
                 athlete.Exercise();
             }
@@ -77,7 +77,7 @@ namespace Gym.Models.Gyms
                 sb.AppendLine($"Athletes: No athletes");
             }
             sb.AppendLine($"Equipment total count: {equipment.Count}");
-            sb.AppendLine($"Equipment total weight: {EquipmentWeight} grams");
+            sb.AppendLine($"Equipment total weight: {EquipmentWeight:f2} grams");
             return sb.ToString().Trim();
         }
 

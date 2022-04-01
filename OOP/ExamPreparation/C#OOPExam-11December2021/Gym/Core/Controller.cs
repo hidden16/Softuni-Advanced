@@ -136,10 +136,7 @@ namespace Gym.Core
         public string TrainAthletes(string gymName)
         {
             var currGym = gyms.First(x => x.Name == gymName);
-            foreach (var athlete in currGym.Athletes)
-            {
-                athlete.Exercise();
-            }
+            currGym.Exercise();
             return String.Format(OutputMessages.AthleteExercise, currGym.Athletes.Count);
         }
     }
