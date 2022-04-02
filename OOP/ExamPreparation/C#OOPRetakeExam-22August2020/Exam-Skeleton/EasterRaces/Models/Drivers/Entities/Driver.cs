@@ -10,12 +10,10 @@ namespace EasterRaces.Models.Drivers.Entities
     public class Driver : IDriver
     {
         private string name;
-
         public Driver(string name)
         {
             Name = name;
         }
-
         public string Name
         {
             get => name;
@@ -28,6 +26,7 @@ namespace EasterRaces.Models.Drivers.Entities
                 name = value;
             }
         }
+
         public ICar Car { get; private set; }
 
         public int NumberOfWins { get; private set; }

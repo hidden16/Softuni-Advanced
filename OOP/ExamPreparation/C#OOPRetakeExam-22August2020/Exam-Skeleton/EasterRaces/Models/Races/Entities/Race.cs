@@ -54,13 +54,13 @@ namespace EasterRaces.Models.Races.Entities
             {
                 throw new ArgumentNullException(ExceptionMessages.DriverInvalid);
             }
-            if (!driver.CanParticipate)
+            if (driver.CanParticipate == false)
             {
-                throw new ArgumentException(String.Format(ExceptionMessages.DriverNotParticipate, driver.Name));
+                throw new ArgumentException(string.Format(ExceptionMessages.DriverNotParticipate, driver.Name));
             }
             if (drivers.Contains(driver))
             {
-                throw new ArgumentNullException(String.Format(ExceptionMessages.DriverAlreadyAdded, driver.Name, Name));
+                throw new ArgumentNullException(string.Format(ExceptionMessages.DriverAlreadyAdded, driver.Name, Name));
             }
             drivers.Add(driver);
         }

@@ -1,18 +1,34 @@
 ﻿using EasterRaces.Repositories.Contracts;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace EasterRaces.Repositories.Entities
 {
     public abstract class Repository<T> : IRepository<T>
     {
-        public abstract IReadOnlyCollection<T> Models { get; }
-        public abstract void Add(T model);
+        private I<T> models;
+        public Repository()
+        {
+            models = new List<T>();
+        }
+        protected IReadOnlyCollection<T> Models => models.ToList();
+        public void Add(T model)
+        {
+            models.Add(model);
+        }
 
-        public abstract IReadOnlyCollection<T> GetAll();
+        public IReadOnlyCollection<T> GetAll()
+        {
+            return models.ToList();
+        }
+
         public abstract T GetByName(string name);
 
-        public abstract bool Remove(T model);
+        public bool Remove(T model)
+        {
+            return models.Remove(model);
+        }
     }
 }

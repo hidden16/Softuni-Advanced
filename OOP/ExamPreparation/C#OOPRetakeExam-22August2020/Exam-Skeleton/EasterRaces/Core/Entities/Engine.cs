@@ -4,7 +4,7 @@ using EasterRaces.IO.Contracts;
 
 namespace EasterRaces.Core.Entities
 {
-    public class Engine
+    public class Engine : IEngine
     {
         private readonly IChampionshipController controller;
         private readonly IReader reader;

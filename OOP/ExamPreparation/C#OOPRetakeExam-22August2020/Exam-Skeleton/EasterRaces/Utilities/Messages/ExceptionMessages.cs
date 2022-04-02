@@ -28,7 +28,7 @@
          
         public const string RaceNotFound = "Race {0} could not be found.";
       
-        public const string RaceExists = "Race {0} is already created.";
+        public const string RaceExists = "Race {0} is already create.";
     
         public const string RaceInvalid = "Race {0} cannot start with less than {1} participants.";
     }
