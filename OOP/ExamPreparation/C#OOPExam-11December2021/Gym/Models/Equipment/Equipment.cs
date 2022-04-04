@@ -12,7 +12,6 @@ namespace Gym.Models.Equipment
             Weight = weight;
             Price = price;
         }
-
         public double Weight { get; }
 
         public decimal Price { get; }

@@ -11,6 +11,8 @@ namespace Gym.Models.Athletes
         private string fullName;
         private string motivation;
         private int numberOfMedals;
+        private int stamina;
+
         public Athlete(string fullName, string motivation, int numberOfMedals, int stamina)
         {
             FullName = fullName;
@@ -20,7 +22,7 @@ namespace Gym.Models.Athletes
         }
         public string FullName
         {
-            get { return fullName; }
+            get => fullName;
             private set
             {
                 if (string.IsNullOrEmpty(value))
@@ -33,7 +35,7 @@ namespace Gym.Models.Athletes
 
         public string Motivation
         {
-            get { return motivation; }
+            get => motivation;
             private set
             {
                 if (string.IsNullOrEmpty(value))
@@ -43,11 +45,24 @@ namespace Gym.Models.Athletes
                 motivation = value;
             }
         }
-        public int Stamina { get; protected set; }
+
+        public int Stamina
+        {
+            get => stamina;
+            protected set
+            {
+                if (value > 100)
+                {
+                    value = 100;
+                    throw new ArgumentException(ExceptionMessages.InvalidStamina);
+                }
+                stamina = value;
+            }
+        }
 
         public int NumberOfMedals
         {
-            get { return numberOfMedals; }
+            get => numberOfMedals;
             private set
             {
                 if (value < 0)
@@ -57,6 +72,7 @@ namespace Gym.Models.Athletes
                 numberOfMedals = value;
             }
         }
+
         public abstract void Exercise();
     }
 }

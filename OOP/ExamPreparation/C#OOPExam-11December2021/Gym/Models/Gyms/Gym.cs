@@ -14,16 +14,18 @@ namespace Gym.Models.Gyms
         private string name;
         private List<IEquipment> equipment;
         private List<IAthlete> athletes;
-        public Gym(string name, int capacity)
+
+        protected Gym(string name, int capacity)
         {
             Name = name;
             Capacity = capacity;
             equipment = new List<IEquipment>();
             athletes = new List<IAthlete>();
         }
+
         public string Name
         {
-            get { return name; }
+            get => name;
             private set
             {
                 if (string.IsNullOrEmpty(value))
@@ -36,7 +38,7 @@ namespace Gym.Models.Gyms
 
         public int Capacity { get; }
 
-        public double EquipmentWeight => Equipment.Select(x => x.Weight).Sum();
+        public double EquipmentWeight => Equipment.Sum(x => x.Weight);
 
         public ICollection<IEquipment> Equipment => equipment;
 
@@ -44,7 +46,7 @@ namespace Gym.Models.Gyms
 
         public void AddAthlete(IAthlete athlete)
         {
-            if (athletes.Count >= Capacity)
+            if (Athletes.Count >= Capacity)
             {
                 throw new InvalidOperationException(ExceptionMessages.NotEnoughSize);
             }
@@ -58,7 +60,7 @@ namespace Gym.Models.Gyms
 
         public void Exercise()
         {
-            foreach (var athlete in Athletes)
+            foreach (var athlete in athletes)
             {
                 athlete.Exercise();
             }
@@ -68,23 +70,23 @@ namespace Gym.Models.Gyms
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"{Name} is a {GetType().Name}:");
-            if (athletes.Count > 0)
+            // sb.AppendLine($"Athletes: {athleteName1}, {athleteName2}, {athleteName3} (…) / No athletes");
+            if (Athletes.Count > 0)
             {
-                sb.AppendLine($"Athletes: {string.Join(", ", athletes.Select(x=>x.FullName))}");
+                sb.AppendLine($"Athletes: {string.Join(", ", athletes.Select(x => x.FullName))}");
             }
             else
             {
                 sb.AppendLine($"Athletes: No athletes");
             }
-            sb.AppendLine($"Equipment total count: {equipment.Count}");
+            sb.AppendLine($"Equipment total count: {Equipment.Count}");
             sb.AppendLine($"Equipment total weight: {EquipmentWeight:f2} grams");
-            return sb.ToString().Trim();
+            return sb.ToString().TrimEnd();
         }
 
         public bool RemoveAthlete(IAthlete athlete)
-        { 
+        {
             return athletes.Remove(athlete);
         }
     }
 }
- 
