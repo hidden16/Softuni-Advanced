@@ -14,7 +14,7 @@ namespace Easter.Repositories
         {
             models = new List<IEgg>();
         }
-        public IReadOnlyCollection<IEgg> Models { get => models; }
+        public IReadOnlyCollection<IEgg> Models => models;
 
         public void Add(IEgg model)
         {
@@ -22,9 +22,13 @@ namespace Easter.Repositories
         }
 
         public IEgg FindByName(string name)
-            => models.FirstOrDefault(x => x.Name == name);
+        {
+            return models.FirstOrDefault(x => x.Name == name);
+        }
 
         public bool Remove(IEgg model)
-            => models.Remove(model);
+        {
+            return models.Remove(model);
+        }
     }
 }

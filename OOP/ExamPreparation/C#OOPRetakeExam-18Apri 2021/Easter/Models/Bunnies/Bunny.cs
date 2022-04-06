@@ -15,7 +15,7 @@ namespace Easter.Models.Bunnies
         public Bunny(string name, int energy)
         {
             Name = name;
-            Energy = energy;
+            this.Energy = energy;
             dyes = new List<IDye>();
         }
         public string Name
@@ -44,16 +44,13 @@ namespace Easter.Models.Bunnies
             }
         }
 
-        public ICollection<IDye> Dyes { get => dyes; }
+        public ICollection<IDye> Dyes => dyes;
 
         public void AddDye(IDye dye)
         {
-            dyes.Add(dye);
+            this.dyes.Add(dye);
         }
 
-        public virtual void Work()
-        {
-            Energy -= 10;
-        }
+        public abstract void Work();
     }
 }

@@ -4,14 +4,15 @@ using System.Text;
 
 namespace Easter.Models.Bunnies
 {
-    public class SleepyBunny : Bunny
+    public class HappyBunny : Bunny
     {
-        public SleepyBunny(string name) : base(name, 50)
+        public HappyBunny(string name) : base(name, 100)
         {
         }
+
         public override void Work()
         {
-            Energy -= 15;
+            Energy -= 10;
         }
     }
 }

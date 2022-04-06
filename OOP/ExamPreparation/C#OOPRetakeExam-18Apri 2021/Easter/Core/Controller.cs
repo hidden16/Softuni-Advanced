@@ -20,31 +20,31 @@ namespace Easter.Core
     {
         private BunnyRepository bunnies;
         private EggRepository eggs;
+        private IWorkshop workshop;
+        private int coloredEggs = 0;
         public Controller()
         {
             bunnies = new BunnyRepository();
             eggs = new EggRepository();
+            workshop = new Workshop();
         }
-
         public string AddBunny(string bunnyType, string bunnyName)
         {
             IBunny bunny;
-            if (bunnyType == "HappyBunny")
+            if (bunnyType == nameof(HappyBunny))
             {
                 bunny = new HappyBunny(bunnyName);
-                bunnies.Add(bunny);
-                return String.Format(OutputMessages.BunnyAdded, bunnyType, bunnyName);
             }
-            else if (bunnyType == "SleepyBunny")
+            else if (bunnyType == nameof(SleepyBunny))
             {
                 bunny = new SleepyBunny(bunnyName);
-                bunnies.Add(bunny);
-                return String.Format(OutputMessages.BunnyAdded, bunnyType, bunnyName);
             }
             else
             {
                 throw new InvalidOperationException(ExceptionMessages.InvalidBunnyType);
             }
+            bunnies.Add(bunny);
+            return String.Format(OutputMessages.BunnyAdded, bunnyType, bunnyName);
         }
 
         public string AddDyeToBunny(string bunnyName, int power)
@@ -56,7 +56,7 @@ namespace Easter.Core
                 throw new InvalidOperationException(ExceptionMessages.InexistentBunny);
             }
             currBunny.AddDye(dye);
-            return String.Format(OutputMessages.DyeAdded, power, currBunny.Name);
+            return String.Format(OutputMessages.DyeAdded, power, bunnyName);
         }
 
         public string AddEgg(string eggName, int energyRequired)
@@ -68,47 +68,46 @@ namespace Easter.Core
 
         public string ColorEgg(string eggName)
         {
-            IEgg egg = eggs.FindByName(eggName);
-            if (bunnies.Models.All(x=>x.Energy < 50))
+            var currEgg = eggs.FindByName(eggName);
+            if (bunnies.Models.All(x => x.Energy < 50))
             {
                 throw new InvalidOperationException(ExceptionMessages.BunniesNotReady);
             }
-            IWorkshop workshop = new Workshop();
             List<IBunny> bunniesToRemove = new List<IBunny>();
-            foreach (var bunny in bunnies.Models.Where(x=>x.Energy >= 50).OrderByDescending(x=>x.Energy))
+            foreach (var bunny in bunnies.Models.Where(x => x.Energy >= 50).OrderByDescending(x => x.Energy))
             {
-                workshop.Color(egg, bunny);
-                if (bunny.Energy == 0)
+                workshop.Color(currEgg, bunny);
+                if (bunny.Energy <= 0)
                 {
                     bunniesToRemove.Add(bunny);
                 }
             }
-            foreach (var item in bunniesToRemove)
+            foreach (var bunny in bunniesToRemove)
             {
-                bunnies.Remove(item);
+                bunnies.Remove(bunny);
             }
-            if (egg.IsDone())
+            if (currEgg.IsDone())
             {
-                return String.Format(OutputMessages.EggIsDone, egg.Name);
+                coloredEggs++;
+                return String.Format(OutputMessages.EggIsDone, currEgg.Name);
             }
             else
             {
-                return String.Format(OutputMessages.EggIsNotDone, egg.Name);
+                return String.Format(OutputMessages.EggIsNotDone, currEgg.Name);
             }
         }
 
         public string Report()
         {
-            List<IEgg> coloredEggs = eggs.Models.Where(x => x.IsDone() == true).ToList();
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"{coloredEggs.Count} eggs are done!");
+            sb.AppendLine($"{coloredEggs} eggs are done!");
             sb.AppendLine($"Bunnies info:");
             foreach (var bunny in bunnies.Models)
             {
+                int notFinishedDyes = bunny.Dyes.Where(x => !x.IsFinished()).Count();
                 sb.AppendLine($"Name: {bunny.Name}");
                 sb.AppendLine($"Energy: {bunny.Energy}");
-                var notFinishedDyes = bunny.Dyes.Where(x => x.IsFinished() == false).ToList();
-                sb.AppendLine($"Dyes: {notFinishedDyes.Count} not finished");
+                sb.AppendLine($"Dyes: {notFinishedDyes} not finished");
             }
             return sb.ToString().TrimEnd();
         }

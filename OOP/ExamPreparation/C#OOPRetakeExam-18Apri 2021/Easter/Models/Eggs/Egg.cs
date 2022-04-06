@@ -47,6 +47,8 @@ namespace Easter.Models.Eggs
         }
 
         public bool IsDone()
-            => EnergyRequired == 0;
+        {
+            return EnergyRequired == 0;
+        }
     }
 }

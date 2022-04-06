@@ -8,12 +8,14 @@ namespace Easter.Models.Dyes
     public class Dye : IDye
     {
         private int power;
+
         public Dye(int power)
         {
             Power = power;
         }
-        public int Power 
-        { 
+
+        public int Power
+        {
             get => power;
             private set
             {
@@ -21,12 +23,15 @@ namespace Easter.Models.Dyes
                 {
                     value = 0;
                 }
-                power = value;
-            } 
+                power = value;  
+            }
         }
 
+
         public bool IsFinished()
-            => Power == 0;
+        {
+            return Power == 0;
+        }
 
         public void Use()
         {

@@ -14,7 +14,7 @@ namespace Easter.Repositories
         {
             models = new List<IBunny>();
         }
-        public IReadOnlyCollection<IBunny> Models { get => models; }
+        public IReadOnlyCollection<IBunny> Models => models;
 
         public void Add(IBunny model)
         {
@@ -23,10 +23,12 @@ namespace Easter.Repositories
 
         public IBunny FindByName(string name)
         {
-            return models.FirstOrDefault(x => x.Name == name);
+            return models.FirstOrDefault(x=>x.Name == name);
         }
 
         public bool Remove(IBunny model)
-            => models.Remove(model);
+        {
+            return models.Remove(model);
+        }
     }
 }
