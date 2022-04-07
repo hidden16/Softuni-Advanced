@@ -15,6 +15,7 @@ namespace WarCroft.Entities.Inventory
             Capacity = capacity;
             items = new List<Item>();
         }
+
         public int Capacity { get; set; } = 100;
 
         public int Load => Items.Sum(x => x.Weight);
@@ -36,13 +37,13 @@ namespace WarCroft.Entities.Inventory
             {
                 throw new InvalidOperationException(ExceptionMessages.EmptyBag);
             }
-            Item item = items.FirstOrDefault(x => x.GetType().Name == name);
-            if (item == null)
+            var currItem = Items.FirstOrDefault(x=>x.GetType().Name == name);
+            if (currItem == null)
             {
-                throw new ArgumentException(string.Format(ExceptionMessages.ItemNotFoundInBag, name));
+                throw new ArgumentException(ExceptionMessages.ItemNotFoundInBag, name);
             }
-            items.Remove(item);
-            return item;
+            items.Remove(currItem);
+            return currItem;
         }
     }
 }

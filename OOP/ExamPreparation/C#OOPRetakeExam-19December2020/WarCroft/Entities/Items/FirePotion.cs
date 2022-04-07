@@ -13,6 +13,7 @@ namespace WarCroft.Entities.Items
         public override void AffectCharacter(Character character)
         {
             base.AffectCharacter(character);
+            // DECREASE HEALTH BY 20 IF DIES IsAlive -> FALSE
             character.Health -= 20;
             if (character.Health <= 0)
             {

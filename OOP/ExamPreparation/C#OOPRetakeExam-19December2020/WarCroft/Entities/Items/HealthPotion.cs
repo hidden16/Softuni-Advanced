@@ -13,6 +13,7 @@ namespace WarCroft.Entities.Items
         public override void AffectCharacter(Character character)
         {
             base.AffectCharacter(character);
+            // INCREASE CHARACTER HEALTH BY 20
             character.Health += 20;
         }
     }

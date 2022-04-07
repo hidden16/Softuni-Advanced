@@ -11,16 +11,8 @@ namespace WarCroft.Entities.Characters.Contracts
         private string name;
         private double health;
         private double armor;
-        public Character(string name, double health, double armor, double abilityPoints, IBag bag)
-        {
-            Name = name;
-            BaseHealth = health;
-            BaseArmor = armor;
-            Health = health;
-            Armor = armor;
-            AbilityPoints = abilityPoints;
-            Bag = bag;
-        }
+
+        // TODO: Implement the rest of the class.
         public string Name
         {
             get => name;
@@ -33,24 +25,34 @@ namespace WarCroft.Entities.Characters.Contracts
                 name = value;
             }
         }
-        public double BaseHealth { get; }
+        public Character(string name, double health, double armor, double abilityPoints, Bag bag)
+        {
+            Name = name;
+            BaseHealth = health;
+            Health = health;
+            BaseArmor = armor;
+            Armor = armor;
+            AbilityPoints = abilityPoints;
+            Bag = bag;
+        }
+        public double BaseHealth { get; private set; }
         public double Health
         {
             get => health;
-            internal set
+            set
             {
                 if (value < 0)
                 {
                     value = 0;
                 }
-                else if (value > BaseHealth)
+                if (value > BaseHealth)
                 {
                     value = BaseHealth;
                 }
                 health = value;
             }
         }
-        public double BaseArmor { get; }
+        public double BaseArmor { get; private set; }
         public double Armor
         {
             get => armor;
@@ -63,33 +65,32 @@ namespace WarCroft.Entities.Characters.Contracts
                 armor = value;
             }
         }
-        public double AbilityPoints { get; private set; }
+        public double AbilityPoints { get; set; }
         public IBag Bag { get; set; }
         public bool IsAlive { get; set; } = true;
-
         public void TakeDamage(double hitPoints)
         {
             EnsureAlive();
-            double leftoverHitpoints = 0.0;
-            var armorRemoved = false;
+            double remainingHitPoints = 0.0;
+            bool armorFallen = false;
             if (Armor > 0)
             {
-                if (hitPoints > Armor)
+                if (Armor - hitPoints < 0)
                 {
-                    leftoverHitpoints = hitPoints - Armor;
-                    armorRemoved = true;
+                    remainingHitPoints = hitPoints - Armor;
+                    armorFallen = true;
                 }
                 Armor -= hitPoints;
             }
-            if (armorRemoved)
+            if (Armor <= 0)
             {
-                Health -= leftoverHitpoints;
-            }
-            else
-            {
-                if (Armor <= 0)
+                if (armorFallen)
                 {
-                    Health -= hitPoints;
+                    Health -= remainingHitPoints;
+                }
+                else
+                {
+                    health -= hitPoints;
                 }
             }
             if (Health <= 0)

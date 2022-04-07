@@ -16,7 +16,10 @@ namespace WarCroft.Entities.Characters
         public void Attack(Character character)
         {
             EnsureAlive();
-
+            if (!character.IsAlive)
+            {
+                throw new InvalidOperationException(ExceptionMessages.AffectedCharacterDead);
+            }
             if (this == character)
             {
                 throw new InvalidOperationException(ExceptionMessages.CharacterAttacksSelf);
