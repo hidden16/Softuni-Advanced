@@ -9,17 +9,17 @@ using System.Text;
 
 namespace AquaShop.Models.Aquariums
 {
-    public abstract class Aquarium : IAquarium
+    public class Aquarium : IAquarium
     {
-        private string name;
         private List<IDecoration> decorations;
-        private List<IFish> fish;
+        private List<IFish> fishes;
+        private string name;
         public Aquarium(string name, int capacity)
         {
             Name = name;
             Capacity = capacity;
             decorations = new List<IDecoration>();
-            fish = new List<IFish>();
+            fishes = new List<IFish>();
         }
         public string Name
         {
@@ -36,35 +36,29 @@ namespace AquaShop.Models.Aquariums
 
         public int Capacity { get; }
 
-        public int Comfort => Decorations.Sum(x=>x.Comfort);
+        public int Comfort => Decorations.Sum(x => x.Comfort);
 
-        public ICollection<IDecoration> Decorations
-        {
-            get => decorations;
-        }
+        public ICollection<IDecoration> Decorations => decorations;
 
-        public ICollection<IFish> Fish
-        {
-            get => fish;
-        }
+        public ICollection<IFish> Fish => fishes;
 
         public void AddDecoration(IDecoration decoration)
         {
-            this.decorations.Add(decoration);
+            decorations.Add(decoration);
         }
 
         public void AddFish(IFish fish)
         {
-            if (this.fish.Count >= Capacity)
+            if (Fish.Count >= Capacity)
             {
                 throw new InvalidOperationException(ExceptionMessages.NotEnoughCapacity);
             }
-            this.fish.Add(fish);
+            fishes.Add(fish);
         }
 
         public void Feed()
         {
-            foreach (var fish in fish)
+            foreach (var fish in Fish)
             {
                 fish.Eat();
             }
@@ -74,20 +68,22 @@ namespace AquaShop.Models.Aquariums
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"{Name} ({GetType().Name}):");
-            if (this.fish.Count > 0)
+            if (Fish.Count > 0)
             {
-                sb.AppendLine($"Fish: {string.Join(", ",this.fish.Select(x=>x.Name))}");
+                sb.AppendLine($"Fish: {string.Join(", ", Fish.Select(x => x.Name))}");
             }
             else
             {
                 sb.AppendLine($"Fish: none");
             }
-            sb.AppendLine($"Decorations: {this.Decorations.Count}");
+            sb.AppendLine($"Decorations: {Decorations.Count}");
             sb.AppendLine($"Comfort: {Comfort}");
             return sb.ToString().TrimEnd();
         }
 
         public bool RemoveFish(IFish fish)
-        => this.fish.Remove(fish);
+        {
+            return fishes.Remove(fish);
+        }
     }
 }

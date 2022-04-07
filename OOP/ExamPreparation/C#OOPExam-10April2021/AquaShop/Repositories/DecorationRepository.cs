@@ -14,8 +14,8 @@ namespace AquaShop.Repositories
         {
             models = new List<IDecoration>();
         }
+        public IReadOnlyCollection<IDecoration> Models => models;
 
-        public IReadOnlyCollection<IDecoration> Models { get => models; }
         public void Add(IDecoration model)
         {
             models.Add(model);
@@ -23,7 +23,7 @@ namespace AquaShop.Repositories
 
         public IDecoration FindByType(string type)
         {
-            return models.FirstOrDefault(x=>x.GetType().Name == type);
+            return models.FirstOrDefault(x => x.GetType().Name == type);
         }
 
         public bool Remove(IDecoration model)

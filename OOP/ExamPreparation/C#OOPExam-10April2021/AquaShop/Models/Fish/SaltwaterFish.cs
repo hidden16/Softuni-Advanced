@@ -6,10 +6,9 @@ namespace AquaShop.Models.Fish
 {
     public class SaltwaterFish : Fish
     {
-        private const int initialSize = 5;
         public SaltwaterFish(string name, string species, decimal price) : base(name, species, price)
         {
-            Size = initialSize;
+            Size = 5;
         }
 
         public override void Eat()

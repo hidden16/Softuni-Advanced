@@ -11,15 +11,17 @@ namespace AquaShop.Models.Fish
         private string name;
         private string species;
         private decimal price;
-        public Fish(string name, string species, decimal price)
+
+        protected Fish(string name, string species, decimal price)
         {
             Name = name;
             Species = species;
             Price = price;
         }
+
         public string Name
         {
-            get { return name; }
+            get => name;
             private set
             {
                 if (string.IsNullOrWhiteSpace(value))
@@ -32,7 +34,7 @@ namespace AquaShop.Models.Fish
 
         public string Species
         {
-            get { return species; }
+            get => species;
             private set
             {
                 if (string.IsNullOrWhiteSpace(value))
