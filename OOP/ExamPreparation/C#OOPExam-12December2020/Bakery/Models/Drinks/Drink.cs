@@ -19,6 +19,7 @@ namespace Bakery.Models.Drinks
             Price = price;
             Brand = brand;
         }
+
         public string Name
         {
             get => name;
@@ -44,6 +45,7 @@ namespace Bakery.Models.Drinks
                 portion = value;
             }
         }
+
         public decimal Price
         {
             get => price;

@@ -11,12 +11,10 @@ namespace Bakery.Models.Tables
 {
     public abstract class Table : ITable
     {
-        private List<IBakedFood> foodOrders ;
+        private List<IBakedFood> foodOrders;
         private List<IDrink> drinkOrders;
         private int capacity;
         private int numberOfPeople;
-        private decimal price;
-
         public Table(int tableNumber, int capacity, decimal pricePerPerson)
         {
             TableNumber = tableNumber;
@@ -25,7 +23,7 @@ namespace Bakery.Models.Tables
             foodOrders = new List<IBakedFood>();
             drinkOrders = new List<IDrink>();
         }
-        public int TableNumber { get; private set; }
+        public int TableNumber { get; }
 
         public int Capacity
         {
@@ -53,41 +51,38 @@ namespace Bakery.Models.Tables
             }
         }
 
-        public decimal PricePerPerson { get; private set; }
+        public decimal PricePerPerson { get; }
 
         public bool IsReserved { get; private set; }
 
-        public decimal Price
-        {
-            get => numberOfPeople * PricePerPerson;
-        }
+        public decimal Price => NumberOfPeople * PricePerPerson;
 
         public void Clear()
         {
             foodOrders.Clear();
             drinkOrders.Clear();
-            numberOfPeople = 0;
             IsReserved = false;
+            numberOfPeople = 0;
         }
 
         public decimal GetBill()
         {
-            return foodOrders.Sum(x => x.Price) + drinkOrders.Sum(x => x.Price);
+            return drinkOrders.Sum(x => x.Price) + foodOrders.Sum(x=>x.Price);
         }
 
         public string GetFreeTableInfo()
         {
-            StringBuilder sb = new StringBuilder();
+           StringBuilder sb = new StringBuilder();
             sb.AppendLine($"Table: {TableNumber}");
             sb.AppendLine($"Type: {GetType().Name}");
             sb.AppendLine($"Capacity: {Capacity}");
-            sb.AppendLine($"Price per Person: {PricePerPerson:f2}");
+            sb.AppendLine($"Price per Person: {PricePerPerson}");
             return sb.ToString().TrimEnd();
         }
 
         public void OrderDrink(IDrink drink)
         {
-            drinkOrders.Add(drink);
+           drinkOrders.Add(drink);
         }
 
         public void OrderFood(IBakedFood food)
@@ -97,11 +92,8 @@ namespace Bakery.Models.Tables
 
         public void Reserve(int numberOfPeople)
         {
-            if (Capacity >= numberOfPeople)
-            {
-                IsReserved = true;
-                NumberOfPeople = numberOfPeople;
-            }
+            NumberOfPeople = numberOfPeople;
+            IsReserved = true;
         }
     }
 }
