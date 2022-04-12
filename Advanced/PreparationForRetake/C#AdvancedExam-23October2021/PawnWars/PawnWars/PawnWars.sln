@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32126.317
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PawnWars", "PawnWars.csproj", "{B6169BE5-8F8B-4D68-8084-7398F7A494EE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B6169BE5-8F8B-4D68-8084-7398F7A494EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6169BE5-8F8B-4D68-8084-7398F7A494EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6169BE5-8F8B-4D68-8084-7398F7A494EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6169BE5-8F8B-4D68-8084-7398F7A494EE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1B0BCA85-E7E3-4810-B785-2B4326650782}
+	EndGlobalSection
+EndGlobal
